@@ -3,7 +3,7 @@ $(function() {
     console.log('Failed processing file');
   }
 
-  function handleFileForResize(file, callback) {
+  function initFileForResize(file, outputSize, callback) {
     if (file) {
       var img = new Image();
 
@@ -16,7 +16,7 @@ $(function() {
         window.URL.revokeObjectURL(img.src);
 
         if(width && height) {
-          callback(width, height);
+          callback(width, height, outputSize);
         } else {
           callback();
         }
@@ -26,7 +26,7 @@ $(function() {
     }
   }
 
-  function postToResizeApi(operation, sizeType) {
+  function postToResizeApi(operation, sizeType, outputSize) {
     var blobFile = $('.emoji-form-img')[0].files[0];
     var formData = new FormData();
     formData.append('input', blobFile);
@@ -40,8 +40,8 @@ $(function() {
       processData: false,
       contentType: false,
       success: function(response) {
-        $('.image-holder').html('<img alt="your slack emoji" src="http://img-resize.com' + response.view + '">');
-        console.log('success', response);
+        var imageUrl = 'http://img-resize.com' + response.view;
+        $('.image-holder').html('<img alt="your slack emoji" src="' + imageUrl + '">');
       },
       error: function(jqXHR, textStatus, errorMessage) {
         console.log(errorMessage); // Optional
@@ -49,15 +49,15 @@ $(function() {
     });
   }
 
-  function sendResizeRequest(width, height) {
-    if (!width || !height) {
+  function sendResizeRequest(width, height, outputSize) {
+    if (!width || !height || !outputSize) {
       return fileError();
     }
 
     if (Number(width) > Number(height)) {
-      postToResizeApi('fixedWidth', 'width');
+      postToResizeApi('fixedWidth', 'width', outputSize);
     } else {
-      postToResizeApi('fixedHeight', 'height');
+      postToResizeApi('fixedHeight', 'height', outputSize);
     }
   }
 
@@ -66,6 +66,6 @@ $(function() {
 
     var imageFile = $('.emoji-form-img')[0].files[0];
 
-    handleFileForResize(imageFile, sendResizeRequest);
+    initFileForResize(imageFile, '128', sendResizeRequest);
   });
 });
