@@ -3,6 +3,31 @@ $(function() {
     console.log('Failed processing file');
   }
 
+  function formatBytes(bytes,decimals) {
+    if(bytes == 0) return '0 Byte';
+    var k = 1000;
+    var dm = decimals + 1 || 3;
+    var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+    var i = Math.floor(Math.log(bytes) / Math.log(k));
+
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+  }
+
+  function getImageContentLength(imageUrl) {
+    $.ajax({
+      url: '/filesize?url=' + imageUrl,
+      type: 'HEAD',
+      success: function(response, textStatus, xhr) {
+        var imageContentLength = Number(xhr.getResponseHeader('Content-Length'));
+        console.log('content length:', xhr.getResponseHeader('Content-Length'));
+        $('.image-file-size').html(formatBytes(imageContentLength));
+      },
+      error: function(jqXHR, textStatus, errorMessage) {
+        console.log(errorMessage);
+      }
+    });
+  }
+
   function initFileForResize(file, outputSize, callback) {
     if (file) {
       var img = new Image();
@@ -42,6 +67,7 @@ $(function() {
       success: function(response) {
         var imageUrl = 'http://img-resize.com' + response.view;
         $('.image-holder').html('<img alt="your slack emoji" src="' + imageUrl + '">');
+        getImageContentLength(imageUrl);
       },
       error: function(jqXHR, textStatus, errorMessage) {
         console.log(errorMessage); // Optional
