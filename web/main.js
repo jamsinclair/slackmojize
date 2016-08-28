@@ -89,6 +89,7 @@ $(function() {
       },
       error: function(jqXHR, textStatus, errorMessage) {
         console.log(errorMessage);
+        showErrorView();
       }
     });
   }
