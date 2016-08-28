@@ -34,9 +34,18 @@ $(function() {
       }
     });
 
-    this.on('success', function(meh, response) {
-      var imageUrl = 'http://img-resize.com' + response.view;
-      validateEmojiContentSize(imageUrl);
+    this.on('success', function(file, response) {
+      var imageApiUrl = 'http://img-resize.com',
+        // On an errored response the API seems to return a string rather than JSON
+        // Ensure we have an object response to work with
+        parsedResponse = (typeof response === 'string' ? JSON.parse(response) : response) || {},
+        viewImgUrl = parsedResponse.view;
+
+      if (parsedResponse.ok && typeof viewImgUrl === 'string') {
+        validateEmojiContentSize(imageApiUrl + viewImgUrl);
+      } else {
+        showErrorView(false, parsedResponse.msg);
+      }
     });
   }
 
