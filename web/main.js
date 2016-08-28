@@ -84,10 +84,10 @@ $(function() {
   }
 
   function handleEmojiValidity(imageContentLength, imageUrl) {
-    var isValidForSlackEmoji = imageContentLength < 128000,
+    var isValidForSlackEmoji = imageContentLength < 64000,
       errorHeader = 'Uh oh, your image is too big to be an Emoji',
       errorMessage = [
-        'Your resized image is still too big({{fileSize}}) and larger than the 128KB limit for Slack Emojis.',
+        'Your resized image is still too big({{fileSize}}) and larger than the 64KB limit for Slack Emojis.',
         'Please try again and select a smaller output size.'
       ].join('');
 
