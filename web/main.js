@@ -1,6 +1,62 @@
+(function(){
+  Dropzone.autoDiscover = false;
+})();
+
 $(function() {
+  var resizeConfig = {},
+    emojiDropzone;
+
   function fileError() {
     console.log('Failed processing file');
+  }
+
+  function initDropzoneCallback() {
+    this.on('addedfile', function(file) {
+      if (this.files && this.files.length > 1) {
+        this.removeFile(this.files[0]);
+      }
+    });
+
+    this.on('sending', function(file, xhr, formData) {
+      var emojiDimensionValue = $('input[name=image-dimension]:checked', '#emoji-form').val();
+      formData.append('op', resizeConfig.operation);
+      formData.append(resizeConfig.type, emojiDimensionValue);
+      // Remove unneeded form value for the resize API
+      formData.delete('image-dimension');
+    });
+
+    this.on('error', function(file, errorMessage, xhr) {
+      if (xhr && typeof xhr === 'object') {
+        var errorMessage = xhr.statusText && xhr.statusText.length ? xhr.statusText : '';
+        showErrorView('Oops, an unexpected error has occurred.', errorMessage);
+      } else {
+        showErrorView(errorMessage, '');
+      }
+    });
+
+    this.on('success', function(meh, response) {
+      var imageUrl = 'http://img-resize.com' + response.view;
+      validateEmojiContentSize(imageUrl);
+    });
+  }
+
+  function setupDropzone() {
+    emojiDropzone = new Dropzone('#emoji-form', {
+      addRemoveLinks: false,
+      autoProcessQueue: false,
+      clickable: true,
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest'
+      },
+      maxFiles: 1,
+      maxFilesize: 5,
+      method: 'POST',
+      paramName: 'input',
+      previewsContainer: '.emoji-upload-preview',
+      previewTemplate: '<div class="dz-preview dz-file-preview"><div class="dz-image"><img data-dz-thumbnail=""></div><div class="dz-details"><div class="dz-size"><span data-dz-size=""></span></div><div class="dz-progress"><span class="dz-upload" data-dz-uploadprogress=""></span></div><div class="dz-error-message"><span data-dz-errormessage=""></span></div><div class="dz-success-mark"></div></div>',
+      url: '/resize',
+      init: initDropzoneCallback
+    });
   }
 
   function formatBytes(bytes,decimals) {
@@ -13,14 +69,13 @@ $(function() {
     return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
   }
 
-  function getImageContentLength(imageUrl) {
+  function validateEmojiContentSize(imageUrl) {
     $.ajax({
       url: '/filesize?url=' + imageUrl,
       type: 'HEAD',
       success: function(response, textStatus, xhr) {
         var imageContentLength = Number(xhr.getResponseHeader('Content-Length'));
-        console.log('content length:', xhr.getResponseHeader('Content-Length'));
-        $('.image-file-size').html(formatBytes(imageContentLength));
+        handleEmojiValidity(imageContentLength, imageUrl);
       },
       error: function(jqXHR, textStatus, errorMessage) {
         console.log(errorMessage);
@@ -28,7 +83,25 @@ $(function() {
     });
   }
 
-  function initFileForResize(file, outputSize, callback) {
+  function handleEmojiValidity(imageContentLength, imageUrl) {
+    var isValidForSlackEmoji = imageContentLength < 128000,
+      errorHeader = 'Uh oh, your image is too big to be an Emoji',
+      errorMessage = [
+        'Your resized image is still too big({{fileSize}}) and larger than the 128KB limit for Slack Emojis.',
+        'Please try again and select a smaller output size.'
+      ].join('');
+
+    if (isValidForSlackEmoji) {
+      showSuccessView(imageUrl);
+    } else {
+      errorMessage = errorMessage.replace('{{fileSize}}', formatBytes(imageContentLength));
+      showErrorView(errorHeader, errorMessage);
+    }
+  }
+
+  function calculateResizeConfig(file) {
+    var deferred = $.Deferred();
+
     if (file) {
       var img = new Image();
 
@@ -41,57 +114,82 @@ $(function() {
         window.URL.revokeObjectURL(img.src);
 
         if(width && height) {
-          callback(width, height, outputSize);
+          setResizeConfig(width, height);
+          deferred.resolve();
         } else {
-          callback();
+          deferred.reject('Error getting image dimensions');
         }
       };
     } else {
-      fileError();
+      deferred.reject('No file.');
     }
+
+    return deferred.promise();
   }
 
-  function postToResizeApi(operation, sizeType, outputSize) {
-    var blobFile = $('.emoji-form-img')[0].files[0];
-    var formData = new FormData();
-    formData.append('input', blobFile);
-    formData.append('op', operation);
-    formData.append(sizeType, '128');
-
-    $.ajax({
-      url: './resize',
-      type: 'POST',
-      data: formData,
-      processData: false,
-      contentType: false,
-      success: function(response) {
-        var imageUrl = 'http://img-resize.com' + response.view;
-        $('.image-holder').html('<img alt="your slack emoji" src="' + imageUrl + '">');
-        getImageContentLength(imageUrl);
-      },
-      error: function(jqXHR, textStatus, errorMessage) {
-        console.log(errorMessage); // Optional
-      }
-    });
-  }
-
-  function sendResizeRequest(width, height, outputSize) {
-    if (!width || !height || !outputSize) {
+  function setResizeConfig(width, height) {
+    if (!width || !height) {
       return fileError();
     }
 
     if (Number(width) > Number(height)) {
-      postToResizeApi('fixedWidth', 'width', outputSize);
+      resizeConfig.operation = 'fixedWidth';
+      resizeConfig.type = 'width';
     } else {
-      postToResizeApi('fixedHeight', 'height', outputSize);
+      resizeConfig.operation = 'fixedHeight';
+      resizeConfig.type = 'height';
     }
+  }
+
+  function resetToUploadView() {
+    emojiDropzone.removeAllFiles();
+    $('.loading-view').hide();
+    $('.success-view').hide();
+    $('.error-view').hide();
+    $('.upload-view').show();
+  }
+
+  function showLoadingView() {
+    $('.success-view').hide();
+    $('.error-view').hide();
+    $('.upload-view').hide();
+    $('.loading-view').show();
+  }
+
+  function showSuccessView(imageUrl) {
+    $('.emoji-success-img').attr('src', imageUrl);
+
+    $('.loading-view').hide();
+    $('.error-view').hide();
+    $('.upload-view').hide();
+    $('.success-view').show();
+  }
+
+  function showErrorView(header, message) {
+    $('.error-view-header').html(header);
+    $('.error-view-message').html(message);
+
+    $('.loading-view').hide();
+    $('.upload-view').hide();
+    $('.success-view').hide();
+    $('.error-view').show();
   }
 
   $('#emoji-form').on('submit', function(e) {
     e.preventDefault();
 
-    var imageFile = $('.emoji-form-img')[0].files[0];
+    var emojiFile = emojiDropzone.files[0];
 
-    initFileForResize(imageFile, '128', sendResizeRequest);
+    calculateResizeConfig(emojiFile)
+      .then(function() {
+        emojiDropzone.processQueue();
+        showLoadingView();
+      }, function(error) {
+        console.log(error);
+      });
   });
+
+  $('.emoji-reset-form').on('click', resetToUploadView);
+
+  setupDropzone();
 });
