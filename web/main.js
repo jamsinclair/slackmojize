@@ -28,9 +28,9 @@ $(function() {
     this.on('error', function(file, errorMessage, xhr) {
       if (xhr && typeof xhr === 'object') {
         var errorMessage = xhr.statusText && xhr.statusText.length ? xhr.statusText : '';
-        showErrorView('Oops, an unexpected error has occurred.', errorMessage);
+        showErrorView(false, errorMessage);
       } else {
-        showErrorView(errorMessage, '');
+        showErrorView(errorMessage);
       }
     });
 
@@ -166,7 +166,9 @@ $(function() {
   }
 
   function showErrorView(header, message) {
-    $('.error-view-header').html(header);
+    var errorHeader = header || 'Oops, an unexpected error has occurred.';
+
+    $('.error-view-header').html(errorHeader);
     $('.error-view-message').html(message);
 
     $('.loading-view').hide();

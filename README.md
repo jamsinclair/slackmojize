@@ -1,5 +1,7 @@
 # Slackmoji
 
+https://slackmoji.herokuapp.com/
+
 ![Restrictive Slack Emojis](https://media.giphy.com/media/l0K4p6SITMK3fBQWY/giphy.gif)
 
 Slack emoji uploads are restrictive:
