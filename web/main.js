@@ -51,6 +51,7 @@ $(function() {
 
   function setupDropzone() {
     emojiDropzone = new Dropzone('#emoji-form', {
+      acceptedFiles: 'image/jpg,image/jpeg,image/png,image/gif,.bmp',
       addRemoveLinks: false,
       autoProcessQueue: false,
       clickable: true,
