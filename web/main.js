@@ -181,6 +181,7 @@ $(function() {
 
   function showSuccessView(imageUrl) {
     $('.emoji-success-img').attr('src', imageUrl);
+    $('.emoji-download-link').attr('href', imageUrl.replace('view', 'dl'));
 
     $('.loading-view').hide();
     $('.error-view').hide();
