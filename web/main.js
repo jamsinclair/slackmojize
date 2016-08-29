@@ -18,9 +18,9 @@ $(function() {
     });
 
     this.on('sending', function(file, xhr, formData) {
-      var emojiDimensionValue = $('input[name=image-dimension]:checked', '#emoji-form').val();
+      var emojiFormDimensionValue = $('input[name=image-dimension]:checked', '#emoji-form').val();
       formData.append('op', resizeConfig.operation);
-      formData.append(resizeConfig.type, emojiDimensionValue);
+      formData.append(resizeConfig.type, emojiFormDimensionValue);
       // Remove unneeded form value for the resize API
       formData.delete('image-dimension');
     });
@@ -97,15 +97,27 @@ $(function() {
   function handleEmojiValidity(imageContentLength, imageUrl) {
     var isValidForSlackEmoji = imageContentLength < 64000,
       errorHeader = 'Uh oh, your image is too big to be an Emoji',
-      errorMessage = [
-        'Your resized image is still too big({{fileSize}}) and larger than the 64KB limit for Slack Emojis.',
-        'Please try again and select a smaller output size.'
-      ].join('');
+      errorMessage = 'Your resized image is still too big({{fileSize}}) and larger than the 64KB limit for Slack Emojis.',
+      emojiFormDimensionValue;
 
     if (isValidForSlackEmoji) {
       showSuccessView(imageUrl);
     } else {
+      emojiFormDimensionValue = $('input[name=image-dimension]:checked', '#emoji-form').val();
       errorMessage = errorMessage.replace('{{fileSize}}', formatBytes(imageContentLength));
+
+      if (Number(emojiFormDimensionValue) > 32) {
+        errorMessage += ' Please try again and select a smaller output size.'
+      } else {
+        // We don't provide an option to make the image any smaller than 32*32px. The user is most likely trying to make
+        // an Animated GIF an emoji, try point them to a more useful tool for editing and downsizing a gif.
+        errorMessage += [
+          ' We can&apos;t really make your image much smaller. If you&apos;re trying to downsize an animated GIF image',
+          ' I recommend trying to use the <a href="http://ezgif.com/resize">EZgif Animated GIF Resizer</a> tool.',
+          ' Sorry about that.'
+        ].join('');
+      }
+
       showErrorView(errorHeader, errorMessage);
     }
   }
