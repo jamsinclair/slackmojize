@@ -1,4 +1,10 @@
 .App {
+  max-width: 800px;
+  padding: 10px;
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+  box-sizing: border-box;
   text-align: center;
 }
 
