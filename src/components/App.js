@@ -8,6 +8,12 @@ class App extends Component {
     files: []
   }
 
+  addFile = file => {
+    const files = [...this.state.files]
+    files.push(file)
+    this.setState({ files })
+  }
+
   render() {
     return (
       <div className="App">
@@ -20,8 +26,8 @@ class App extends Component {
           </h2>
         </header>
         <div className="App-body">
-          <DropZone></DropZone>
-          <EmojiZone></EmojiZone>
+          <DropZone addFile={this.addFile}></DropZone>
+          { this.state.files.length ? <EmojiZone></EmojiZone> : null }
         </div>
         <footer className="App-footer">
           Hacked together by <a href="https://github.com/jamsinclair/slackmojize">jamsinclair</a>

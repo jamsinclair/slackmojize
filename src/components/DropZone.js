@@ -7,6 +7,7 @@ class DropZone extends Component {
 
   componentDidMount = () => {
     this.dropZone = new Ascender(this.dropZoneRef.current)
+    this.dropZone.on('file:added', file => this.props.addFile(file))
   }
 
   componentWillUnmount = () => {
