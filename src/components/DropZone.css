@@ -1,0 +1,11 @@
+.drop-zone {
+  width: 100%;
+  max-width: 700px;
+  min-height: 300px;
+  margin: 0 auto;
+  padding: 40px;
+  border: 2px dashed #313131;
+  border-radius: 5px;
+  box-sizing: border-box;
+  text-align: center;
+}
