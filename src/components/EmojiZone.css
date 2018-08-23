@@ -1,0 +1,12 @@
+.EmojiZone {
+  flex: 2;
+  width: 100%;
+  max-width: 43.75rem;
+  min-height: 18.75rem;
+  margin: 0 0 0 0.5rem;
+  padding: 2.5rem;
+  border: 2px solid #313131;
+  border-radius: 5px;
+  box-sizing: border-box;
+  text-align: center;
+}
