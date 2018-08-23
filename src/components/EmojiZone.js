@@ -6,7 +6,7 @@ class EmojiZone extends Component {
   render() {
     return (
       <div className="EmojiZone">
-        <ul className="emoji-items">
+        <ul className="EmojiZone-list">
           {Object.keys(this.props.files).map(key => {
             return <EmojiItem
               key={key}

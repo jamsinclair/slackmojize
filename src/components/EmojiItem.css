@@ -1,0 +1,30 @@
+.EmojiItem {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #313131;
+  padding: 1rem 0;
+}
+
+.EmojiItem:last-child {
+  border: none;
+}
+
+.EmojiItem-action {
+  cursor: pointer;
+  padding: 0 0.5rem;
+}
+
+.EmojiItem-action,
+.EmojiItem-action--download:visited,
+.EmojiItem-action--remove:visited {
+  color: inherit;
+}
+
+.EmojiItem-action--download:hover {
+  color: #72AAAA;
+}
+
+.EmojiItem-action--remove:hover {
+  color: #f44336;
+}
+
