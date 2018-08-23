@@ -19,7 +19,11 @@ class DropZone extends Component {
   render() {
     return (
       <form className="DropZone" ref={this.dropZoneRef}>
-        {this.props.children}
+        <h1 className="DropZone-title">
+          Drag Files Here or <span className="DropZone-prompt">
+            Browse&nbsp;To&nbsp;Select
+          </span>
+        </h1>
       </form>
     );
   }

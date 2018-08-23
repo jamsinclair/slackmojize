@@ -1,5 +1,9 @@
 .DropZone {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   flex: 1;
+  cursor: pointer;
   width: 100%;
   max-width: 43.75rem;
   min-height: 18.75rem;
@@ -9,4 +13,17 @@
   border-radius: 5px;
   box-sizing: border-box;
   text-align: center;
+}
+
+.DropZone-title {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.DropZone-prompt {
+  text-decoration: underline;
+}
+
+.DropZone:hover .DropZone-prompt {
+  color: #72AAAA;
 }
