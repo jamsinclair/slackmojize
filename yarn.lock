@@ -252,9 +252,9 @@ asap@~2.0.3:
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/asap/-/asap-2.0.6.tgz#e50347611d7e690943208bbdafebcbc2fb866d46"
 
-ascender@^0.2.2:
-  version "0.2.2"
-  resolved "https://registry.yarnpkg.com/ascender/-/ascender-0.2.2.tgz#c05561f256898f20510dd1dd918145cb44356f96"
+ascender@^0.3.1:
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/ascender/-/ascender-0.3.1.tgz#fae513a8ab694a18ce6a9c9dfd6911d3753ea36a"
   dependencies:
     tiny-emitter "^2.0.2"
 
