@@ -17,7 +17,7 @@ class DropZone extends Component {
 
   render() {
     return (
-      <form className="drop-zone" ref={this.dropZoneRef}>
+      <form className="DropZone" ref={this.dropZoneRef}>
         {this.props.children}
       </form>
     );

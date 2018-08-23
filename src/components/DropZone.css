@@ -1,9 +1,10 @@
-.drop-zone {
+.DropZone {
+  flex: 1;
   width: 100%;
-  max-width: 700px;
-  min-height: 300px;
+  max-width: 43.75rem;
+  min-height: 18.75rem;
   margin: 0 auto;
-  padding: 40px;
+  padding: 2.5rem;
   border: 2px dashed #313131;
   border-radius: 5px;
   box-sizing: border-box;
