@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import imageType from 'image-type'
 import DropZone from './DropZone'
 import EmojiZone from './EmojiZone'
 import { getId } from '../utils'
@@ -10,9 +11,23 @@ class App extends Component {
   }
 
   addFile = file => {
-    const files = {...this.state.files}
-    files[getId.next().value] = file
-    this.setState({ files })
+    file.getBinary().then(binary => {
+      if (!this.isValidFile(binary)) {
+        // Invalid image
+        return
+      }
+
+      const files = {...this.state.files}
+      files[getId.next().value] = file
+      this.setState({ files })
+    })
+  }
+
+  isValidFile (binary) {
+    const validTypes = ['png', 'jpg']
+    const fileType = imageType(binary)
+
+    return fileType && validTypes.indexOf(fileType.ext) > -1
   }
 
   render() {
