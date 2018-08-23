@@ -3,12 +3,11 @@
   padding: 1rem;
   width: 100%;
   margin: 0 auto;
-  text-align: center;
-  text-align: center;
 }
 
 .App-header {
   margin-bottom: 2rem;
+  text-align: center;
 }
 
 .App-logo {
@@ -37,8 +36,9 @@
 }
 
 .App-footer {
-  color: #666;
   padding: 2rem;
+  color: #666;
+  text-align: center;
 }
 
 @keyframes App-logo-spin {
