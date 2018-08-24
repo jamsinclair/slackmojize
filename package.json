@@ -16,6 +16,7 @@
     "@fortawesome/react-fontawesome": "^0.1.0-11",
     "ascender": "^0.3.1",
     "image-type": "^3.0.0",
+    "pica": "^4.1.1",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
     "react-scripts": "1.1.4"
