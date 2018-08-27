@@ -22,7 +22,11 @@ const EmojiItem = ({ image, imageKey, removeImage }) => (
       {image.original.data.name}
     </div>
     <div className="EmojiItem-actions">
-      <a className="EmojiItem-action EmojiItem-action--download" href={`#file`}>
+      <a
+        className="EmojiItem-action EmojiItem-action--download"
+        download={image.original.data.name}
+        href={image.resizedDataUri}
+        >
         <FontAwesomeIcon icon={faDownload} size="1x" />
       </a>
       <span className="EmojiItem-action EmojiItem-action--remove" onClick={() => removeImage(imageKey)}>
