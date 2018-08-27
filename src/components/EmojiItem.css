@@ -9,10 +9,23 @@
   border: none;
 }
 
+.EmojiItem-spinner,
 .EmojiItem-image {
-  flex: 0 32px;
-  height: 32px;
-  width: 32px;
+  flex: 0 2rem;
+  height: 2rem;
+  width: 2rem;
+}
+
+.EmojiItem-spinner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: spin 1s infinite ease-in-out;
+}
+
+.EmojiItem-spinner svg {
+  height: 1.5rem;
+  width: 1.5rem;
 }
 
 .EmojiItem-name {
@@ -40,5 +53,10 @@
 
 .EmojiItem-action--remove:hover {
   color: #EC6363;
+}
+
+@keyframes spin {
+  from { transform:rotate(0deg); }
+  to { transform:rotate(359deg); }
 }
 
