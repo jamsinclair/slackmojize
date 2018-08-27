@@ -16,7 +16,7 @@ const renderEmojiImage = image => {
 }
 
 const EmojiItem = ({ image, imageKey, removeImage }) => (
-  <li className="EmojiItem">
+  <li className={ `EmojiItem ${(image.resizedDataUri ? '' : ' EmojiItem--loading')}`}>
     {renderEmojiImage(image)}
     <div className="EmojiItem-name">
       {image.original.data.name}

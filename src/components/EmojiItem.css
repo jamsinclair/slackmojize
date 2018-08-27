@@ -5,6 +5,11 @@
   padding: 1rem 0;
 }
 
+.EmojiItem--loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
 .EmojiItem:last-child {
   border: none;
 }
