@@ -1,12 +1,26 @@
 .EmojiItem {
   display: flex;
-  justify-content: space-between;
+  align-items: center;
   border-bottom: 1px solid #313131;
   padding: 1rem 0;
 }
 
 .EmojiItem:last-child {
   border: none;
+}
+
+.EmojiItem-image {
+  flex: 0 32px;
+  height: 32px;
+  width: 32px;
+}
+
+.EmojiItem-name {
+  flex: 1;
+  padding: 0.625rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .EmojiItem-action {
@@ -25,6 +39,6 @@
 }
 
 .EmojiItem-action--remove:hover {
-  color: #f44336;
+  color: #EC6363;
 }
 

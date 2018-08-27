@@ -7,10 +7,12 @@ class EmojiZone extends Component {
     return (
       <div className="EmojiZone">
         <ul className="EmojiZone-list">
-          {Object.keys(this.props.files).map(key => {
+          {Object.keys(this.props.images).map(key => {
             return <EmojiItem
               key={key}
-              file={this.props.files[key]}
+              image={this.props.images[key]}
+              imageKey={key}
+              removeImage={this.props.removeImage}
               />
             })
           }
