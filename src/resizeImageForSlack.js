@@ -1,4 +1,4 @@
-import picaModule from "pica";
+import picaModule from "pica/dist/pica";
 const pica = picaModule();
 
 const MAX_FILE_SIZE = 128000;
