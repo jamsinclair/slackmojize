@@ -17,7 +17,7 @@ const renderEmojiImage = image => {
     return <Spinner className="EmojiItem-icon" />
   }
 
-  return <img className="EmojiItem-image" src={image.resizedDataUri} alt={image.original.name} />
+  return <img className="EmojiItem-image" src={image.resizedImgUrl} alt={image.original.name} />
 }
 
 const ErrorMessage = ({ error }) => {
@@ -46,7 +46,7 @@ const DownloadAction = ({ image }) => {
     <a
       className="EmojiItem-action EmojiItem-action--download"
       download={image.original.data.name}
-      href={image.resizedDataUri}
+      href={image.resizedImgUrl}
       >
       <FontAwesomeIcon icon={faDownload} size="1x" />
     </a>
@@ -54,7 +54,7 @@ const DownloadAction = ({ image }) => {
 }
 
 const EmojiItem = ({ image, imageKey, removeImage }) => {
-  const isLoading = !image.resizedDataUri && !image.error
+  const isLoading = !image.ready
 
   return (
     <li className={`EmojiItem ${ isLoading ? 'EmojiItem--loading' : '' }`}>
