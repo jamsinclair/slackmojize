@@ -4,9 +4,6 @@ import JsZip from 'jszip'
 import { saveAs } from 'file-saver'
 
 class ZipDownloadContainer extends Component {
-  loading = false;
-  disabled = false;
-
   download = () => {
     this.createZipFile()
       .then(fileContent => saveAs(fileContent, 'slackmojis.zip'))
@@ -39,7 +36,6 @@ class ZipDownloadContainer extends Component {
 
     return <ZipDownloadButton
       disabled={filesNotReady}
-      loading={this.loading}
       download={this.download}
       />;
   }
