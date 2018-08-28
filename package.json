@@ -1,6 +1,7 @@
 {
   "name": "slackmojize",
   "version": "0.1.0",
+  "homepage": "https://jamsinclair.nz/slackmojize/",
   "description": "Simple correctly sized emojis for Slack",
   "private": true,
   "main": "index.js",
