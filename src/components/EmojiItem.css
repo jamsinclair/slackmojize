@@ -27,6 +27,7 @@
   justify-content: center;
 }
 
+.EmojiItem-name-error,
 .EmojiItem-icon--error {
   color: #EC6363;
 }
