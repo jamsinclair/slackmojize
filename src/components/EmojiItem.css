@@ -32,15 +32,6 @@
   color: #EC6363;
 }
 
-.EmojiItem-icon--spinner {
-  animation: spin 1s infinite ease-in-out;
-}
-
-.EmojiItem-spinner svg {
-  height: 1.5rem;
-  width: 1.5rem;
-}
-
 .EmojiItem-name {
   flex: 1;
   padding: 0.625rem;
@@ -67,9 +58,3 @@
 .EmojiItem-action--remove:hover {
   color: #EC6363;
 }
-
-@keyframes spin {
-  from { transform:rotate(0deg); }
-  to { transform:rotate(359deg); }
-}
-

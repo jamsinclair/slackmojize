@@ -1,6 +1,7 @@
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faExclamationCircle, faCircleNotch, faDownload, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
+import { faExclamationCircle, faDownload, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
+import Spinner from './Spinner'
 import './EmojiItem.css'
 
 const renderEmojiImage = image => {
@@ -12,12 +13,8 @@ const renderEmojiImage = image => {
     )
   }
 
-  if (!image.resizedDataUri) {
-    return (
-      <div className="EmojiItem-icon EmojiItem-icon--spinner">
-        <FontAwesomeIcon icon={faCircleNotch} size="1x" />
-      </div>
-    )
+  if (!image.ready) {
+    return <Spinner className="EmojiItem-icon" />
   }
 
   return <img className="EmojiItem-image" src={image.resizedDataUri} alt={image.original.name} />
