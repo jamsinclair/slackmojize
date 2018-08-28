@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import EmojiItem from './EmojiItem'
+import ZipDownloadContainer from './ZipDownloadContainer'
 import './EmojiZone.css';
 
 class EmojiZone extends Component {
@@ -17,6 +18,7 @@ class EmojiZone extends Component {
             })
           }
         </ul>
+        <ZipDownloadContainer files={this.props.images}></ZipDownloadContainer>
       </div>
     );
   }

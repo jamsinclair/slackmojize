@@ -3,7 +3,6 @@
   width: 100%;
   height: 20rem;
   margin: 0 0 0 0.725rem;
-  padding: 0 1.5rem;
   border: 2px solid #313131;
   border-radius: 5px;
   box-sizing: border-box;
@@ -11,9 +10,11 @@
 }
 
 .EmojiZone-list {
+  height: calc(100% - 2.5rem);
   margin: 0;
-  padding: 0;
+  padding: 0 1.5rem;
   list-style: none;
+  overflow: auto;
 }
 
 @media (max-width: 37.5em) {
