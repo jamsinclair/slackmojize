@@ -1,0 +1,33 @@
+.ZipDownloadButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  height: 2.5rem;
+  width: 100%;
+  background-color: inherit;
+  border-top: 2px solid #313131;
+  color: inherit;
+  cursor: pointer;
+  transition-property: color, background-color;
+  transition-duration: 0.1s;
+  transition-timing-function: linear;
+  user-select: none;
+}
+
+.ZipDownloadButton:hover {
+  color: #ffffff;
+  background: #313131;
+}
+
+.ZipDownloadButton--disabled,
+.ZipDownloadButton--loading {
+  background: #313131;
+  cursor: wait;
+  color: #ffffff;
+  opacity: 0.8;
+}
+
+.ZipDownloadButton .Spinner {
+  margin-right: 0.5rem;
+}
