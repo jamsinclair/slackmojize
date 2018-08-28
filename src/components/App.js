@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import imageType from 'image-type'
-import { DropFile } from 'ascender'
 import DropZone from './DropZone'
 import EmojiZone from './EmojiZone'
 import resizeImageForSlack from '../resizeImageForSlack'
@@ -24,8 +23,10 @@ class App extends Component {
       const key = getId.next().value
       images[key] = {
         original: file,
-        resized: null,
-        resizedDataUri: null
+        resizedBlob: null,
+        resizedImgUrl: null,
+        error: false,
+        ready: false
       }
       this.setState({ images })
       this.resizeFile(file, type, key)
@@ -41,11 +42,11 @@ class App extends Component {
 
   resizeFile = async (file, type, key) => {
     const resizedBlob = await resizeImageForSlack(file, type)
-    const resizedFile = new DropFile(resizedBlob)
     const images = {...this.state.images}
-    images[key].resized = resizedFile
-    images[key].resizedDataUri = resizedBlob ? await resizedFile.getDataUri() : null
+    images[key].resizedBlob = resizedBlob
+    images[key].resizedImgUrl = URL.createObjectURL(resizedBlob)
     images[key].error = !Boolean(resizedBlob)
+    images[key].ready = true
     this.setState({ images })
   }
 
