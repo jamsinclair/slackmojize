@@ -6,10 +6,10 @@ const MAX_HEIGHT = 128
 const MAX_WIDTH = 128
 
 const resizeImageForSlack = async (file, type) => {
-  const img = await _createImageFromUri(file);
-  const fromCanvas = _createCanvasForImage(img, type);
-  const toCanvas = _createSlackCanvas();
   const alpha = type.mime === 'image/png'
+  const img = await _createImageFromUri(file);
+  const fromCanvas = _createCanvasForImage(img, alpha);
+  const toCanvas = _createSlackCanvas();
   let quality = 0.9
   let outputBlob
 
@@ -27,7 +27,7 @@ const resizeImageForSlack = async (file, type) => {
   return outputBlob
 }
 
-const _createCanvasForImage = (img, type) => {
+const _createCanvasForImage = (img, alpha) => {
   const canvas = document.createElement('canvas');
   const ctx = canvas.getContext('2d')
   const max = Math.max(img.width, img.height)
@@ -36,7 +36,7 @@ const _createCanvasForImage = (img, type) => {
 
   // JPEG images do not support alpha
   // Fill background with white for better slack emoji appearance
-  if (type.mime === 'image/jpeg') {
+  if (!alpha) {
     ctx.fillStyle = '#ffffff';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
   }
