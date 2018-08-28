@@ -1,17 +1,24 @@
 .EmojiZone {
   flex: 2;
   width: 100%;
-  min-height: 18.75rem;
-  margin: 0 0 0 0.5rem;
+  height: 20rem;
+  margin: 0 0 0 0.725rem;
   padding: 0 1.5rem;
   border: 2px solid #313131;
   border-radius: 5px;
   box-sizing: border-box;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 .EmojiZone-list {
   margin: 0;
   padding: 0;
   list-style: none;
+}
+
+@media (max-width: 37.5em) {
+  .EmojiZone {
+    margin: 0.725rem 0 0;
+    max-height: 24rem;
+  }
 }

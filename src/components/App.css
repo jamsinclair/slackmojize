@@ -33,6 +33,7 @@
 
 .App-body {
   display: flex;
+  min-height: 20rem;
 }
 
 .App-footer {
@@ -41,7 +42,8 @@
   text-align: center;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+@media (max-width: 37.5em) {
+  .App-body {
+    flex-direction: column;
+  }
 }
