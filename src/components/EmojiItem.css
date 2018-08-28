@@ -14,17 +14,24 @@
   border: none;
 }
 
-.EmojiItem-spinner,
+.EmojiItem-icon,
 .EmojiItem-image {
   flex: 0 2rem;
   height: 2rem;
   width: 2rem;
 }
 
-.EmojiItem-spinner {
+.EmojiItem-icon {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.EmojiItem-icon--error {
+  color: #EC6363;
+}
+
+.EmojiItem-icon--spinner {
   animation: spin 1s infinite ease-in-out;
 }
 
