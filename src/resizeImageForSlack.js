@@ -10,10 +10,15 @@ const resizeImageForSlack = async (file, type) => {
   const img = await _createImageFromUri(file);
   const fromCanvas = _createCanvasForImage(img, alpha);
   const toCanvas = _createSlackCanvas();
-  let quality = 0.9
+  let quality = 1
   let outputBlob
 
-  await pica.resize(fromCanvas, toCanvas, { alpha })
+  await pica.resize(fromCanvas, toCanvas, {
+    alpha,
+    unsharpAmount: 60,
+    unsharpRadius: 0.6,
+    unsharpThreshold: 2
+  })
 
   do {
     outputBlob = await pica.toBlob(toCanvas, type.mime, quality)
