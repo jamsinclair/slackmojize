@@ -8,7 +8,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "format": "prettier-eslint \"src/**/*.js\" --write"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.0-14",
@@ -21,7 +22,7 @@
     "jszip": "^3.1.5",
     "pica": "^4.1.1",
     "prettier": "1.14.2",
-    "prettier-eslint": "^8.8.2",
+    "prettier-eslint-cli": "^4.7.1",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
     "react-scripts": "1.1.4"
