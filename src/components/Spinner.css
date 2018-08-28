@@ -1,0 +1,16 @@
+.Spinner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: spin 1s infinite ease-in-out;
+}
+
+.Spinner svg {
+  height: 1.5rem;
+  width: 1.5rem;
+}
+
+@keyframes spin {
+  from { transform:rotate(0deg); }
+  to { transform:rotate(359deg); }
+}
