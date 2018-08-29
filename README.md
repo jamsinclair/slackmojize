@@ -1,5 +1,11 @@
 # Slackmojize
 
+> ℹ️ Slack has now updated their emoji creation form to allow larger files. Their servers then try and resize the files correctly. For one off emoji creation, especially gifs, their form is a faster approach.
+
+----------
+
+<img width="400" alt="Example of Slackmojize App in Action" src="./slackmojize.gif">
+
 https://jamsinclair.nz/slackmojize
 
 Slack emoji uploads used to be quite restrictive:
@@ -7,9 +13,9 @@ Slack emoji uploads used to be quite restrictive:
 
 To make this resize process easier I made this simple tool to resize emoji to be suitable for upload. 
 
-ℹ️ Slack has now updated there emoji creation form to allow larger files. Their servers then try and resize the files correctly. For one off emoji creation, especially gifs, their form is a faster approach.
+The app can batch resize `JPEG` and `PNG` files in your browser entirely clientside. Gif support pending, trickier to do in the browser.
 
-The app can batch resize jpgs and pngs in your browser entirely clientside. Gif support pending, trickier to do in the browser.
+## Development
 
 To run the app locally:
 ```shell
