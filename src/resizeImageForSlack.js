@@ -1,7 +1,7 @@
 import picaModule from "pica/dist/pica";
 const pica = picaModule();
 
-const MAX_FILE_SIZE = 128000;
+const MAX_FILE_SIZE = 64000;
 const MAX_HEIGHT = 128;
 const MAX_WIDTH = 128;
 
