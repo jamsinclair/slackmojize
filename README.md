@@ -6,7 +6,7 @@ Easily resize images in your browser for Slack Emoji Upload! Let this react app 
 
 <img width="400" alt="Example of Slackmojize App in Action" src="./slackmojize.gif">
 
-https://jamsinclair.nz/slackmojize
+https://jamsinclair.github.io/slackmojize
 
 Slack emoji uploads used to be quite restrictive:
 > Image can't be larger than 128px in width or height, and must be smaller than 64K in file size.
